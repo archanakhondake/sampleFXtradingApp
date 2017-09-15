@@ -1,0 +1,57 @@
+<h2>Book Trade</h2>
+
+<form novalidate name="bookTradeForm" ng-hide="bookingDone" ng-submit="bookTradeForm.$valid && bookTrade()">
+
+    <div class="form-group" ng-class="{ 'has-error' : bookTradeForm.name.$invalid && !bookTradeForm.name.$pristine }">
+        <label>Enter customer Name:</label>
+        <input type="text" ng-model="trade.customerName" required class="form-control" name="name" required>
+        <p ng-show="bookTradeForm.name.$invalid && !bookTradeForm.name.$pristine" class="help-block">Customer name is required.</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : bookTradeForm.currencyPairSelect.$invalid && !bookTradeForm.currencyPairSelect.$pristine }">
+        <label>Enter Currency Pair:</label>
+        <select ng-model="trade.currencyPair" ng-options="option as option for option in currencylist" required ng-change="onSelectCurrency()" class="form-control" name="currencyPairSelect">
+            <option value="">Please Select Currency Pair</option>
+        </select>
+        <p ng-show="bookTradeForm.currencyPairSelect.$invalid && !bookTradeForm.currencyPairSelect.$pristine" class="help-block">Currency pair is required.</p>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : bookTradeForm.transferAmount.$invalid && !bookTradeForm.transferAmount.$pristine }">
+        <label>Enter amount to transfer:</label>
+        <input type="number" ng-model="trade.transferAmount" required class="form-control" name="transferAmount">
+        <p ng-show="bookTradeForm.transferAmount.$invalid && !bookTradeForm.transferAmount.$pristine" class="help-block">Transfer amount is required.</p>
+    </div>
+
+    <div class="form-group">
+        <label>Do you want to get Rate?</label>
+        <div class="radio">
+            <label><input type="radio" name="optradio" ng-model="showRate" value="Yes">Yes</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="optradio" ng-model="showRate" value="No">No</label>
+        </div>
+
+    </div>
+
+    <div class="form-group" ng-show="showRate=='Yes'" ng-class="{ 'has-error' : bookTradeForm.rate.$invalid && !bookTradeForm.rate.$pristine }">
+        <label>Enter Rate:</label>
+        <input type="number" ng-model="trade.currencyRate" class="form-control" required name="rate">
+        <p ng-show="bookTradeForm.rate.$invalid && !bookTradeForm.rate.$pristine" class="help-block">Currency rate can not be empty.</p>
+    </div>
+
+    <button type="submit" class="btn btn-primary" ng-disabled="bookTradeForm.$invalid">Book</button>
+
+</form>
+
+
+<div ng-show="bookingDone">
+    <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success!</strong>
+        Trade for <b>{{trade.currencyPair}}</b> has been booked with rate <b>{{trade.currencyRate | currency :""}}</b> , The amount of <b>Rs {{trade.totalAmount | currency :""}} </b> will be transferred in 2 working days to <b>{{trade.customerName}}</b>
+   </div>
+</div>
+
+<br>
+<a href="#/listTrades" class="btn btn-info" role="button"> List Trades</a>
+<a href="#/home" class="btn btn-link" role="button"> Home</a>

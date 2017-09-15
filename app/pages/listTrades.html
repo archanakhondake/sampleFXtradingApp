@@ -1,0 +1,27 @@
+<h3>List of Trades</h3>
+
+<table class="table table-striped" ng-show="tradelist.length>0">
+    <thead>
+        <tr>
+            <th>TradeNo</th>
+            <th>CurrencyPair</th>
+            <th>CustomerName</th>
+            <th>Amount</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="trade in tradelist">
+            <td>{{trade.tradeNo}}</td>
+            <td>{{trade.currencyPair}}</td>
+            <td>{{trade.customerName}}</td>
+            <td>{{trade.totalAmount}}</td>
+            <td>{{trade.currencyRate}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="text-center" ng-hide="tradelist.length>0"><h4>No trades available</h4></div>
+
+<a href="#/home"> Home</a>
